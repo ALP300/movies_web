@@ -18,7 +18,7 @@ async function Conectar(params) {
         await cliente.connect()
         console.log("Conectado a la base de datos")
 
-    }catch{
-
+    }catch(error){
+        console.log(error)
     }
 }
