@@ -3,11 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title><%= title %> - Sobre Nosotros</title>
+    <link rel="stylesheet" href="/about.css">
+    <%- include('partials/head') %>
 </head>
 <body>
     <%- include('partials/navigation') %>
-    <h1>Sobre Nosotros</h1>
+
+    <main class="about-us">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Sobre Nosotros</h1>
+                <p>Explora el mundo del cine con nosotros. Somos una comunidad apasionada por las películas, las historias y el arte del séptimo arte.</p>
+            </div>
+        </section>
+
+        <section class="our-mission">
+            <h2>Nuestra Misión</h2>
+            <p>Conectar a los amantes del cine con reseñas, noticias, recomendaciones y más, para que disfrutes cada momento frente a la pantalla.</p>
+        </section>
+
+        <section class="team">
+            <h2>Conoce al Equipo</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="/img/juancito.jpg" alt="Juan Pérez">
+                    <h3>Juan Pérez</h3>
+                    <p>Fundador y Crítico de Cine</p>
+                </div>
+                <div class="team-member">
+                    <img src="/img/juanP.jpg" alt="Juan Pacal">
+                    <h3>Juan Pacal</h3>
+                    <p>Redactora y Editora</p>
+                </div>
+                <div class="team-member">
+                    <img src="/img/lucho.jpg" alt="Luchito Diaz">
+                    <h3>Luchito Diaz</h3>
+                    <p>Productor de Contenido</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Contáctanos</h2>
+            <p>¿Tienes sugerencias o ideas? ¡Queremos saber de ti!</p>
+            <a href="/contacto" class="btn">Escríbenos</a>
+        </section>
+    </main>
 
     <%- include('partials/footer') %>
 </body>
