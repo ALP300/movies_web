@@ -1,40 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Landing Page</title>
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/main.css" />
     <%- include('partials/head') %>
-</head>
-<body>
+  </head>
+  <body>
     <%- include('partials/navigation') %>
 
     <main>
-        <section class="hero">
-            <div class="hero-text">
-                <h1>Experience the Magic of Cinema</h1>
-                <p>Discover the latest blockbuster that will take your breath away.</p>
-                <a href="#trailers" class="btn">Watch Trailer</a>
-            </div>
-        </section>
+      <section class="hero">
+        <div class="hero-text">
+          <h1>Experience the Magic of Cinema</h1>
+          <p>
+            Discover the latest blockbuster that will take your breath away.
+          </p>
+          <a href="#trailers" class="btn">Watch Trailer</a>
+        </div>
+      </section>
 
-        <section id="synopsis" class="section">
-            <h2>Synopsis</h2>
-            <p>An epic tale of love, betrayal, and redemption set against the backdrop of a fantastical world.</p>
-        </section>
+      <section id="synopsis" class="section">
+        <h2>Synopsis</h2>
+        <p>
+          An epic tale of love, betrayal, and redemption set against the
+          backdrop of a fantastical world.
+        </p>
+      </section>
 
-        <section id="cast" class="section">
-            <h2>Cast</h2>
-            <p>Starring: John Doe, Jane Smith, and more...</p>
-        </section>
+      <section id="cast" class="section">
+        <h2>Cast</h2>
+        <p>Starring: John Doe, Jane Smith, and more...</p>
+      </section>
 
-        <section id="trailers" class="section">
-            <h2>Trailers</h2>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/zIanzSUXpIY?si=WZ9N1WUa94kPG7Vw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </section>
+      <section id="trailers" class="section">
+        <h2>Trailers</h2>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/zIanzSUXpIY?si=WZ9N1WUa94kPG7Vw"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </section>
     </main>
 
+    <div id="mostrarpeliculas"></div>
+
+    <script>
+      function mostrarPeliculas(peliculas) {
+        const mostrarpeliculasDiv = document.getElementById("mostrarpeliculas");
+        console.log("Contenedor encontrado", mostrarpeliculasDiv);
+        console.log("Películas recibidas: ", peliculas);
+
+        // Limpiar el contenedor
+        mostrarpeliculasDiv.innerHTML = ``;
+
+        peliculas.forEach((pelicula) => {
+          const peliculaDiv = document.createElement("div");
+          peliculaDiv.classList.add("pelicula");
+
+          const titulo = document.createElement("h2");
+          titulo.textContent = pelicula.titulo;
+
+          const imagen = document.createElement("img"); 
+          imagen.src = pelicula.url;
+          imagen.alt = pelicula.titulo;
+          peliculaDiv.appendChild(titulo);
+          peliculaDiv.appendChild(imagen);
+
+          
+          mostrarpeliculasDiv.appendChild(peliculaDiv);
+        });
+      }
+
+      async function getPeliculas() {
+        try {
+          const response = await fetch(
+            "http://localhost:3000/api/get-peliculas",
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+
+          if (response.ok) {
+            const peliculas = await response.json();
+            console.log("Las películas son: ", peliculas);
+            mostrarPeliculas(peliculas);
+          } else {
+            console.log("Error en la respuesta de la API");
+          }
+        } catch (error) {
+          console.error("Error al obtener las películas: ", error);
+        }
+      }
+
+      window.addEventListener("DOMContentLoaded", getPeliculas);
+    </script>
+
     <%- include('partials/footer') %>
-</body>
+  </body>
 </html>
